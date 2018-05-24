@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import fetchNews from '../../utils/api';
-import { normalizedComments, normalizedArticles } from '../../data/data';
+import { articles, normalizedComments, normalizedArticles } from '../../data/data';
 import ArticleList from '../../components/ArticleList/ArticleList';
 // import './App.css';
 
@@ -9,7 +9,7 @@ class App extends Component {
     super(props);
 
     this.state  = {
-      articles: normalizedArticles
+      articles: articles
     }
   }
   componentDidMount() {
