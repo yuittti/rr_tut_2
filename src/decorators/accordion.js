@@ -9,13 +9,9 @@ export default (OriginalComponent) => class WrappedComponent extends Component {
         return <OriginalComponent {...this.props} {...this.state} toggleOpenArticle={this.toggleOpenArticle} />
     }
 
-    toggleOpenArticle = (openArticleId) => {
-        if (this.state.openArticleId === openArticleId) {
-            this.setState({
-                openArticleId: null
-            })
-        } else {
-            this.setState({openArticleId})
-        }
+    toggleOpenArticle = openArticleId => ev => {
+        this.setState({
+            openArticleId: this.state.openArticleId === openArticleId ? null : openArticleId
+        })
     }
 }

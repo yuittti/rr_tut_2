@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CommentList from '../CommentList/CommentList';
+import CSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Article extends Component {
     static propTypes = {
@@ -13,6 +14,10 @@ class Article extends Component {
         toggleOpen: PropTypes.func.isRequired
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextProps.isOpen !== this.props.isOpen
+    }
+
     render() {
         const {article, isOpen, toggleOpen} = this.props;
 
@@ -22,7 +27,6 @@ class Article extends Component {
                 <button onClick={toggleOpen}>
                     {isOpen ? 'Close' : 'Open'}
                 </button>
-                
                 {this.getBody()}
             </div>
         )
