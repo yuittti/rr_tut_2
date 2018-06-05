@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CommentList from '../CommentList/CommentList';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+import { CSSTransitionGroup } from 'react-transition-group';
+import './article.css';
 
 class Article extends Component {
     static propTypes = {
@@ -27,7 +28,13 @@ class Article extends Component {
                 <button onClick={toggleOpen}>
                     {isOpen ? 'Close' : 'Open'}
                 </button>
-                {this.getBody()}
+                <CSSTransitionGroup
+                    transitionName='article'
+                    transitionEnterTimeout={300}
+                    transitionLeaveTimeout={500}
+                >
+                    {this.getBody()}
+                </CSSTransitionGroup>
             </div>
         )
     }
