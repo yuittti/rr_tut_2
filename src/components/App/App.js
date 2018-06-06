@@ -4,7 +4,8 @@ import { articles, normalizedComments, normalizedArticles } from '../../data/dat
 import ArticleList from '../../components/ArticleList/ArticleList';
 import UserForm from '../../components/UserForm/UserForm';
 import Select from 'react-select';
-import 'react-select/dist/react-select.css'; 
+import DateRange from '../../components/DateRange/DateRange';
+import 'react-select/dist/react-select.css';
 // import './App.css';
 
 class App extends Component {
@@ -41,6 +42,8 @@ class App extends Component {
 				<header className="App-header">
 					<h1 className="App-title">News</h1>
 				</header>
+
+				<DateRange />
 
 				<UserForm />
 				<Select options={options} value={this.state.selection} onChange={this.changeSelection} multi={true} />
