@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 // import fetchNews from '../../utils/api';
-import { articles, normalizedComments, normalizedArticles } from '../../data/data';
+// import { articles, normalizedComments, normalizedArticles } from '../../data/data';
 import ArticleList from '../../components/ArticleList/ArticleList';
 import UserForm from '../../components/UserForm/UserForm';
 import Select from 'react-select';
 import DateRange from '../../components/DateRange/DateRange';
 import 'react-select/dist/react-select.css';
+import Counter from '../Counter/Counter';
 // import './App.css';
 
 class App extends Component {
@@ -13,7 +14,7 @@ class App extends Component {
 		super(props);
 
 		this.state  = {
-			articles: articles,
+			// articles: articles,
 			selection: null
 		}
 	}
@@ -32,10 +33,10 @@ class App extends Component {
 	}
 
 	render() {
-		const options = this.state.articles.map(article => ({
-			label: article.title,
-			value: article.id
-		}));
+		// const options = this.state.articles.map(article => ({
+		// 	label: article.title,
+		// 	value: article.id
+		// }));
 
 		return (
 			<div className="App">
@@ -43,15 +44,14 @@ class App extends Component {
 					<h1 className="App-title">News</h1>
 				</header>
 
+				<Counter />
+
 				<DateRange />
 
 				<UserForm />
-				<Select options={options} value={this.state.selection} onChange={this.changeSelection} multi={true} />
+				{/* <Select options={options} value={this.state.selection} onChange={this.changeSelection} multi={true} /> */}
 
-				{
-					this.state.articles.length > 0 &&
-					<ArticleList articles={this.state.articles} />
-				}
+				<ArticleList />
 				
 			</div>
 		);
