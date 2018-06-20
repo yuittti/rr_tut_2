@@ -1,6 +1,7 @@
-import { CHANGE_DATES } from '../constants/actions';
+import { CHANGE_DATES, CHANGE_SELECTION } from '../constants/actions';
 
 const defaultFilters = {
+    selected: [],
     dateRange: {
         from: null,
         to: null
@@ -15,6 +16,11 @@ export default (filters = defaultFilters, action) => {
             return {
                 ...filters,
                 dateRange: payload.dateRange
+            };
+        case CHANGE_SELECTION:
+            return {
+                ...filters,
+                selected: payload.selected
             }
     }
 

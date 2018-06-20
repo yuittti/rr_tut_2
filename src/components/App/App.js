@@ -3,10 +3,9 @@ import React, { Component } from 'react';
 // import { articles, normalizedComments, normalizedArticles } from '../../data/data';
 import ArticleList from '../../components/ArticleList/ArticleList';
 import UserForm from '../../components/UserForm/UserForm';
-import Select from 'react-select';
 import DateRange from '../../components/DateRange/DateRange';
-import 'react-select/dist/react-select.css';
 import Counter from '../Counter/Counter';
+import SelectFilter from '../SelectFilter/SelectFilter'
 // import './App.css';
 
 class App extends Component {
@@ -33,11 +32,6 @@ class App extends Component {
 	}
 
 	render() {
-		// const options = this.state.articles.map(article => ({
-		// 	label: article.title,
-		// 	value: article.id
-		// }));
-
 		return (
 			<div className="App">
 				<header className="App-header">
@@ -48,20 +42,16 @@ class App extends Component {
 
 				<DateRange />
 
-				<UserForm />
-				{/* <Select options={options} value={this.state.selection} onChange={this.changeSelection} multi={true} /> */}
+				<SelectFilter />
 
-				<ArticleList />
+				<UserForm />
 				
+				<ArticleList />
 			</div>
 		);
 	}
 
-	changeSelection = selection => {
-		this.setState({
-			selection
-		})
-	}
+	
 
 }
 
