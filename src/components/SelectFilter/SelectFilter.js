@@ -22,7 +22,7 @@ class SelectFilter extends Component {
     }
 
     changeSelection = selection => {
-		this.props.changeSelection(selection);
+		this.props.changeSelection(selection.map(option => option.value));
 	}
 }
 
