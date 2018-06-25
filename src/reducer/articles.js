@@ -1,14 +1,26 @@
-import { articles as defaultArticles } from '../data/data';
-import {DELETE_ARTICLE} from '../constants/actions';
+import { normalizedArticles as defaultArticles } from '../data/data';
+import { arrToMap } from '../helpers';
+import { DELETE_ARTICLE, ADD_COMMENT } from '../constants/actions';
 
-export default (articleState = defaultArticles, action) => {
-    const {type, payload} = action;
+export default (articleState = arrToMap(defaultArticles), action) => {
+    const {type, payload, randomId} = action;
 
     switch(type) {
         case DELETE_ARTICLE:
-            console.log('----del');
-            return articleState.filter(article => article.id !== payload.id);
+            const tmpState = {...articleState};
+            delete tmpState[payload.id]
+            return tmpState;
+        
+        case ADD_COMMENT:
+            const article = articleState[payload.articleId];
 
+            return {
+                ...articleState,
+                [payload.articleId]: {
+                    ...article,
+                    comments: (article.comments || []).concat(randomId)
+                }
+            }
     }
 
     return articleState;

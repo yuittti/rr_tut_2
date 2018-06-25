@@ -17,9 +17,9 @@ class Article extends Component {
         toggleOpen: PropTypes.func.isRequired
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.isOpen !== this.props.isOpen
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return nextProps.isOpen !== this.props.isOpen
+    // }
 
     handleDelete = () => {
         const {deleteArticle, article} = this.props;
@@ -58,7 +58,7 @@ class Article extends Component {
         return (
             <section>
                 {article.text}
-                <CommentList comments={article.comments} />
+                <CommentList article = {article} />
             </section>
         )
     }

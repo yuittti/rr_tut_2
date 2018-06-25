@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
+import { mapToArr } from '../../helpers';
 import { connect } from 'react-redux';
 import 'react-select/dist/react-select.css';
 import { changeSelection } from '../actions';
@@ -28,5 +29,5 @@ class SelectFilter extends Component {
 
 export default connect(state => ({
     selected: state.filters.selected,
-    articles: state.articles
+    articles: mapToArr(state.articles)
 }), {changeSelection} )(SelectFilter);

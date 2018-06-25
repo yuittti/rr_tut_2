@@ -4,52 +4,34 @@ import Comment from '../Comment/Comment';
 import CommentForm from '../CommentForm/CommentForm';
 import toggleOpen from '../../decorators/toggleOpen';
 
-class CommentList extends Component {
-    static propTypes = {
-        isOpen: PropTypes.bool.isRequired,
-        toggleOpen: PropTypes.func.isRequired,
-        comments: PropTypes.arrayOf(
-            PropTypes.shape({
-                text: PropTypes.string.isRequired,
-                user: PropTypes.string.isRequired
-            })
-        ).isRequired
-    }
+function CommentList({article, isOpen, toggleOpen}) {
+    const btnText = isOpen ? 'Hide comments' : 'Show comments';
 
-    static defaultProps = {
-        comments: []
-    }
+    return (
+        <div>
+            <button onClick={toggleOpen}>{btnText}</button>
+            {getBody({article, isOpen})}
+        </div>
+    )
+}
 
-    render() {
-        const {isOpen, toggleOpen} = this.props;
-        const btnText = isOpen ? 'Hide comments' : 'Show comments';
-        return (
-            <div>
-                <button onClick={toggleOpen}>{btnText}</button>
-                {this.getBody()}
-            </div>
-        )
-    }
+function getBody({article: {comments = [], id}, isOpen}) {
+    
+    if (!isOpen) return null;
+    if (!comments.length) return <p>No comments</p>
 
-    getBody = () => {
-        const {isOpen, comments} = this.props;
-        if (!isOpen) return null;
-        if (!comments.length) return <p>No comments</p>
-
-        return (
-            <div>
-                <ul>
-                    {comments.map(comment => 
-                        <li key={comment.id}>
-                            <Comment id = {comment.id} />
-                        </li>
-                    )}
-                </ul>
-                <CommentForm />
-            </div>
-        )
-    }
-
+    return (
+        <div>
+            <ul>
+                {comments.map(id => 
+                    <li key={id}>
+                        <Comment id = {id} />
+                    </li>
+                )}
+            </ul>
+            <CommentForm articleId = {id} />
+        </div>
+    )
 }
 
 export default toggleOpen(CommentList);
