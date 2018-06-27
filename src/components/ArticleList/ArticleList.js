@@ -4,7 +4,8 @@ import Article from '../Article/Article';
 import accordion from '../../decorators/accordion';
 import {connect} from 'react-redux';
 import { filterArticlesSelector } from '../../selectors';
-import {loadAllArticles} from '../actions/index'
+import {loadAllArticles} from '../actions/index';
+import Loader from '../Loader/Loader';
 
 class ArticleList extends Component {
     static propTypes = {
@@ -14,11 +15,13 @@ class ArticleList extends Component {
     }
 
     componentDidMount() {
-        this.props.loadAllArticles();
+        const {loaded, loading, loadAllArticles} = this.props;
+        if (!loaded || !loading) loadAllArticles();
     }
 
     render() {
-        const {articles, openArticleId, toggleOpenArticle} = this.props;
+        const {articles, openArticleId, toggleOpenArticle, loading} = this.props;
+        if (loading) return <Loader />
         const articleElements = articles.map((article) => 
             <li key = {article.title.replace(/\s/g, '')}>
                 <Article 
@@ -39,7 +42,9 @@ class ArticleList extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        articles: filterArticlesSelector(state)
+        articles: filterArticlesSelector(state),
+        loading: state.articles.loading,
+        loaded: state.articles.loaded
     }
 }
 
