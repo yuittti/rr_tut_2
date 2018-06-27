@@ -3,7 +3,8 @@ import {
     INCREMENT, 
     CHANGE_DATES, 
     CHANGE_SELECTION,
-    ADD_COMMENT } from '../../constants/actions';
+    ADD_COMMENT,
+    LOAD_ALL_ARTICLES } from '../../constants/actions';
 
 export function increment() {
     return {
@@ -37,5 +38,12 @@ export function addComment(comment, articleId) {
         type: ADD_COMMENT,
         payload: { comment, articleId },
         generateId: true
+    }
+}
+
+export function loadAllArticles() {
+    return {
+        type: LOAD_ALL_ARTICLES,
+        callAPI: '/api/article'
     }
 }
