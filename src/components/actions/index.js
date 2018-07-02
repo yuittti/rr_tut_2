@@ -4,7 +4,11 @@ import {
     CHANGE_DATES, 
     CHANGE_SELECTION,
     ADD_COMMENT,
-    LOAD_ALL_ARTICLES } from '../../constants/actions';
+    LOAD_ALL_ARTICLES,
+    LOAD_ARTICLE,
+    START,
+    SUCCESS,
+    FAIL } from '../../constants/actions';
 
 export function increment() {
     return {
@@ -45,5 +49,27 @@ export function loadAllArticles() {
     return {
         type: LOAD_ALL_ARTICLES,
         callAPI: '/api/article'
+    }
+}
+
+export function loadArticle(id) {
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_ARTICLE + START,
+            payload: { id }
+        });
+
+        setTimeout( () => {
+            fetch(`/api/article/${id}`)
+                .then(res => res.json())
+                .then(response => dispatch({
+                    type: LOAD_ARTICLE + SUCCESS,
+                    payload: { id, response }
+                }))
+                .catch(error => dispatch({
+                    type: LOAD_ARTICLE + FAIL,
+                    payload: { id, error }
+                }))
+        }, 1000);
     }
 }

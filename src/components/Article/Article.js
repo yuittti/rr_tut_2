@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import CommentList from '../CommentList/CommentList';
 import { CSSTransitionGroup } from 'react-transition-group';
-import { deleteArticle } from '../actions';
+import { deleteArticle, loadArticle } from '../actions';
 import './article.css';
+import Loader from '../Loader/Loader';
 
 class Article extends Component {
     static propTypes = {
@@ -20,6 +21,10 @@ class Article extends Component {
     // shouldComponentUpdate(nextProps, nextState) {
     //     return nextProps.isOpen !== this.props.isOpen
     // }
+
+    componentWillReceiveProps({isOpen, loadArticle, article}) {
+        if (isOpen && !article.text && !article.loading) loadArticle(article.id);
+    }
 
     handleDelete = () => {
         const {deleteArticle, article} = this.props;
@@ -55,6 +60,7 @@ class Article extends Component {
     getBody = () => {
         const {article, isOpen} = this.props;
         if (!isOpen) return null;
+        if (article.loading) return <Loader />
         return (
             <section>
                 {article.text}
@@ -64,4 +70,4 @@ class Article extends Component {
     }
 }
 
-export default connect(null, { deleteArticle })(Article);
+export default connect(null, { deleteArticle, loadArticle })(Article);
