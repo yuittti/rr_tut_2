@@ -1,24 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Loader from '../Loader/Loader';
 import Comment from '../Comment/Comment';
 import CommentForm from '../CommentForm/CommentForm';
 import toggleOpen from '../../decorators/toggleOpen';
+import { loadArticleComments } from '../actions';
+import { connect } from 'react-redux';
 
-function CommentList({article, isOpen, toggleOpen}) {
-    const btnText = isOpen ? 'Hide comments' : 'Show comments';
+class CommentList extends Component {
+    componentWillReceiveProps({ isOpen, article, loadArticleComments }) {
+        if (!this.props.isOpen && isOpen && !article.commentsLoading && !article.commentsLoaded) {
+            loadArticleComments(article.id);
+        }
+    }
 
-    return (
-        <div>
-            <button onClick={toggleOpen}>{btnText}</button>
-            {getBody({article, isOpen})}
-        </div>
-    )
+    render() {
+        const {article, isOpen, toggleOpen} = this.props;
+        const btnText = isOpen ? 'Hide comments' : 'Show comments';
+
+        return(
+            <div>
+                <button onClick={toggleOpen}>{btnText}</button>
+                {getBody({article, isOpen})}
+            </div>
+        )
+    }
 }
 
-function getBody({article: {comments = [], id}, isOpen}) {
+function getBody({article: {comments = [], id, commentsLoaded, commentsLoading}, isOpen}) {
     
     if (!isOpen) return null;
-    if (!comments.length) return <p>No comments</p>
+    if (commentsLoading) return <Loader />;
+    if (!commentsLoaded) return null;
+    if (!comments.length) return <p>No comments</p>;
 
     return (
         <div>
@@ -34,4 +48,4 @@ function getBody({article: {comments = [], id}, isOpen}) {
     )
 }
 
-export default toggleOpen(CommentList);
+export default connect(null, {loadArticleComments})(toggleOpen(CommentList));

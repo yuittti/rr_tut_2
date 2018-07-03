@@ -6,9 +6,10 @@ import {
     ADD_COMMENT,
     LOAD_ALL_ARTICLES,
     LOAD_ARTICLE,
+    LOAD_ARTICLE_COMMENTS,
     START,
     SUCCESS,
-    FAIL } from '../../constants/actions';
+    FAIL} from '../../constants/actions';
 
 export function increment() {
     return {
@@ -49,6 +50,14 @@ export function loadAllArticles() {
     return {
         type: LOAD_ALL_ARTICLES,
         callAPI: '/api/article'
+    }
+}
+
+export function loadArticleComments(articleId) {
+    return {
+        type: LOAD_ARTICLE_COMMENTS,
+        payload: { articleId },
+        callAPI: `api/comment?article=${articleId}`
     }
 }
 
