@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 // import fetchNews from '../../utils/api';
 // import { articles, normalizedComments, normalizedArticles } from '../../data/data';
 import Articles from '../../components/routes/Articles';
+import NotFound from '../../components/routes/NotFound';
 import UserForm from '../../components/UserForm/UserForm';
 import DateRange from '../../components/DateRange/DateRange';
 import Counter from '../Counter/Counter';
 import SelectFilter from '../SelectFilter/SelectFilter'
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
 // import './App.css';
 
 class App extends Component {
@@ -43,9 +44,12 @@ class App extends Component {
 						<div><NavLink activeStyle={{color: 'red'}} to="/articles">Articles</NavLink></div>
 					</div>
 					<UserForm />
-					<Route path = "/counter" component = {Counter} />
-					<Route path = "/filters" component = {SelectFilter} />
-					<Route path = "/articles" component = {Articles} />
+					<Switch>
+						<Route path = "/counter" component = {Counter} />
+						<Route path = "/filters" component = {SelectFilter} />
+						<Route path = "/articles" component = {Articles} />
+						<Route path = "*" component = {NotFound} />
+					</Switch>
 					{/* <Counter />
 					<DateRange />
 					<SelectFilter /> */}
