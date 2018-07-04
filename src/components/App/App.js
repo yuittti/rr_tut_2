@@ -6,6 +6,7 @@ import UserForm from '../../components/UserForm/UserForm';
 import DateRange from '../../components/DateRange/DateRange';
 import Counter from '../Counter/Counter';
 import SelectFilter from '../SelectFilter/SelectFilter'
+import { HashRouter as Router, Route, NavLink } from 'react-router-dom';
 // import './App.css';
 
 class App extends Component {
@@ -33,21 +34,25 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				<header className="App-header">
-					<h1 className="App-title">News</h1>
-				</header>
-
-				<Counter />
-
-				<DateRange />
-
-				<SelectFilter />
-
-				<UserForm />
-				
-				<ArticleList />
-			</div>
+			<Router>
+				<div className="App">
+					<div>
+						<h2>Main menu</h2>
+						<div><NavLink activeStyle={{color: 'red'}} to="/counter">Counter</NavLink></div>
+						<div><NavLink activeStyle={{color: 'red'}} to="/filters">Filters</NavLink></div>
+						<div><NavLink activeStyle={{color: 'red'}} to="/articles">Articles</NavLink></div>
+					</div>
+					<UserForm />
+					<Route path = "/counter" component = {Counter} />
+					<Route path = "/filters" component = {SelectFilter} />
+					<Route path = "/articles" component = {ArticleList} />
+					{/* <Counter />
+					<DateRange />
+					<SelectFilter /> */}
+					
+					{/* <ArticleList /> */}
+				</div>
+			</Router>
 		);
 	}
 
