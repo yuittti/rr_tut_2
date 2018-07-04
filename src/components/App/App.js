@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 // import fetchNews from '../../utils/api';
 // import { articles, normalizedComments, normalizedArticles } from '../../data/data';
-import ArticleList from '../../components/ArticleList/ArticleList';
+import Articles from '../../components/routes/Articles';
 import UserForm from '../../components/UserForm/UserForm';
 import DateRange from '../../components/DateRange/DateRange';
 import Counter from '../Counter/Counter';
 import SelectFilter from '../SelectFilter/SelectFilter'
-import { HashRouter as Router, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 // import './App.css';
 
 class App extends Component {
@@ -45,7 +45,7 @@ class App extends Component {
 					<UserForm />
 					<Route path = "/counter" component = {Counter} />
 					<Route path = "/filters" component = {SelectFilter} />
-					<Route path = "/articles" component = {ArticleList} />
+					<Route path = "/articles" component = {Articles} />
 					{/* <Counter />
 					<DateRange />
 					<SelectFilter /> */}

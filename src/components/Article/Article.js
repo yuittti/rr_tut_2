@@ -9,21 +9,23 @@ import Loader from '../Loader/Loader';
 
 class Article extends Component {
     static propTypes = {
+        id: PropTypes.string.isRequired,
         article: PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
+            id: PropTypes.string,
+            title: PropTypes.string,
             text: PropTypes.string
-        }).isRequired,
-        isOpen: PropTypes.bool.isRequired,
-        toggleOpen: PropTypes.func.isRequired
+        }),
+        isOpen: PropTypes.bool,
+        toggleOpen: PropTypes.func
     }
 
     // shouldComponentUpdate(nextProps, nextState) {
     //     return nextProps.isOpen !== this.props.isOpen
     // }
 
-    componentWillReceiveProps({isOpen, loadArticle, article}) {
-        if (isOpen && !article.text && !article.loading) loadArticle(article.id);
+    componentDidMount() {
+        const {loadArticle, article, id} = this.props;
+        if (!article || (!article.text && !article.loading)) loadArticle(id);
     }
 
     handleDelete = () => {
@@ -33,7 +35,7 @@ class Article extends Component {
 
     render() {
         const {article, isOpen, toggleOpen} = this.props;
-
+        if (!article) return null;
         return (
             <div ref = {this.setContainerRef}>
                 <h3>{article.title}</h3>
@@ -70,4 +72,6 @@ class Article extends Component {
     }
 }
 
-export default connect(null, { deleteArticle, loadArticle })(Article);
+export default connect((state, ownProps) => ({
+    article: state.articles.entities.get(ownProps.id)
+}), { deleteArticle, loadArticle })(Article);
