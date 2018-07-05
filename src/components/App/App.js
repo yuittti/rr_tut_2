@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // import { articles, normalizedComments, normalizedArticles } from '../../data/data';
 import Articles from '../../components/routes/Articles';
 import NotFound from '../../components/routes/NotFound';
+import CommentsPage from '../../components/routes/CommentsPage';
 import UserForm from '../../components/UserForm/UserForm';
 import DateRange from '../../components/DateRange/DateRange';
 import Counter from '../Counter/Counter';
@@ -48,6 +49,7 @@ class App extends Component {
 						<Route path = "/counter" component = {Counter} />
 						<Route path = "/filters" component = {SelectFilter} />
 						<Route path = "/articles" component = {Articles} />
+						<Route path = "/comments/:page" component = {CommentsPage} />
 						<Route path = "*" component = {NotFound} />
 					</Switch>
 					{/* <Counter />
