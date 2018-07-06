@@ -8,7 +8,7 @@ import UserForm from '../../components/UserForm/UserForm';
 import DateRange from '../../components/DateRange/DateRange';
 import Counter from '../Counter/Counter';
 import SelectFilter from '../SelectFilter/SelectFilter'
-import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink, Redirect, Switch } from 'react-router-dom';
 // import './App.css';
 
 class App extends Component {
@@ -49,7 +49,8 @@ class App extends Component {
 						<Route path = "/counter" component = {Counter} />
 						<Route path = "/filters" component = {SelectFilter} />
 						<Route path = "/articles" component = {Articles} />
-						<Route path = "/comments/:page" component = {CommentsPage} />
+						<Route path = "/comments" component = {CommentsPage} />
+						{/* <Redirect from = "/comments/" to = "/comments/1" /> */}
 						<Route path = "*" component = {NotFound} />
 					</Switch>
 					{/* <Counter />
