@@ -58,7 +58,7 @@ export function loadArticleComments(articleId) {
     return {
         type: LOAD_ARTICLE_COMMENTS,
         payload: { articleId },
-        callAPI: `api/comment?article=${articleId}`
+        callAPI: `/api/comment?article=${articleId}`
     }
 }
 

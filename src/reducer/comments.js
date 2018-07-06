@@ -4,6 +4,7 @@ import {
     LOAD_ARTICLE_COMMENTS, 
     LOAD_COMMENTS_FOR_PAGE,
     START,
+    FAIL,
     SUCCESS } from '../constants/actions';
 import { arrToMap } from '../helpers';
 import { OrderedMap, Map, Record } from 'immutable';
@@ -35,6 +36,9 @@ export default (commentState = defaultState, action) => {
             return commentState.update('entities', entities =>
                 entities.merge(arrToMap(response, CommentRecord))
             )
+        case LOAD_ARTICLE_COMMENTS + FAIL:
+            console.log(payload);
+            break;
         case LOAD_COMMENTS_FOR_PAGE + START:
             return commentState.setIn(['pagination', payload.page, 'loading'], true);
         

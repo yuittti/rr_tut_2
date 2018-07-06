@@ -8,7 +8,9 @@ import UserForm from '../../components/UserForm/UserForm';
 import DateRange from '../../components/DateRange/DateRange';
 import Counter from '../Counter/Counter';
 import SelectFilter from '../SelectFilter/SelectFilter'
-import { BrowserRouter as Router, Route, NavLink, Redirect, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
+import { Router, Route, NavLink, Redirect, Switch } from 'react-router-dom';
+import history from '../../history';
 // import './App.css';
 
 class App extends Component {
@@ -36,7 +38,7 @@ class App extends Component {
 
 	render() {
 		return (
-			<Router>
+			<ConnectedRouter history = {history}>
 				<div className="App">
 					<div>
 						<h2>Main menu</h2>
@@ -59,7 +61,7 @@ class App extends Component {
 					
 					{/* <ArticleList /> */}
 				</div>
-			</Router>
+			</ConnectedRouter>
 		);
 	}
 
