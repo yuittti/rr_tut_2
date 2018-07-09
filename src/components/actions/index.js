@@ -12,6 +12,8 @@ import {
     SUCCESS,
     FAIL} from '../../constants/actions';
 
+import { push, replace } from 'react-router-redux';
+
 export function increment() {
     return {
         type: INCREMENT
@@ -71,15 +73,23 @@ export function loadArticle(id) {
 
         setTimeout( () => {
             fetch(`/api/article/${id}`)
-                .then(res => res.json())
+                .then(res => {
+                    if (res.status >= 400) {
+                        throw new Error(res.statusText);
+                    }
+                    return res.json();
+                })
                 .then(response => dispatch({
                     type: LOAD_ARTICLE + SUCCESS,
                     payload: { id, response }
                 }))
-                .catch(error => dispatch({
-                    type: LOAD_ARTICLE + FAIL,
-                    payload: { id, error }
-                }))
+                .catch(error => {
+                    dispatch({
+                        type: LOAD_ARTICLE + FAIL,
+                        payload: { id, error }
+                    });
+                    dispatch(replace('/error'));
+                })
         }, 1000);
     }
 }
