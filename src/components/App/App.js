@@ -12,6 +12,7 @@ import SelectFilter from '../SelectFilter/SelectFilter'
 import { ConnectedRouter } from 'react-router-redux';
 import { Router, Route, NavLink, Redirect, Switch } from 'react-router-dom';
 import history from '../../history';
+import LangProvider from '../LangProvider/LangProvider';
 // import './App.css';
 
 class App extends Component {
@@ -26,7 +27,8 @@ class App extends Component {
 	};
 
 	state = {
-		username: ''
+		username: '',
+		language: 'ru'
 	};
 
 	componentDidMount() {
@@ -45,34 +47,43 @@ class App extends Component {
 	render() {
 		return (
 			<ConnectedRouter history = {history}>
-				<div className="App">
-					<div>
-						<h2>Main menu</h2>
-						<div><NavLink activeStyle={{color: 'red'}} to="/counter">Counter</NavLink></div>
-						<div><NavLink activeStyle={{color: 'red'}} to="/filters">Filters</NavLink></div>
-						<div><NavLink activeStyle={{color: 'red'}} to="/articles">Articles</NavLink></div>
+				<LangProvider language = {this.state.language}>
+					<div className="App">
+						<div>
+							<ul>
+								<li onClick = {this.changeLanguage('en')}>English</li>
+								<li onClick = {this.changeLanguage('ru')}>Russian</li>
+							</ul>
+						</div>
+						<div>
+							<h2>Main menu</h2>
+							<div><NavLink activeStyle={{color: 'red'}} to="/counter">Counter</NavLink></div>
+							<div><NavLink activeStyle={{color: 'red'}} to="/filters">Filters</NavLink></div>
+							<div><NavLink activeStyle={{color: 'red'}} to="/articles">Articles</NavLink></div>
+						</div>
+						<UserForm value = {this.state.username} onChange = {this.handleUserChange} />
+						<Switch>
+							<Route path = "/counter" component = {Counter} />
+							<Route path = "/filters" component = {SelectFilter} />
+							<Route path = "/articles" component = {Articles} />
+							<Route path = "/comments" component = {CommentsPage} />
+							{/* <Redirect from = "/comments/" to = "/comments/1" /> */}
+							<Route path = "*" component = {NotFound} />
+						</Switch>
+						{/* <Counter />
+						<DateRange />
+						<SelectFilter /> */}
+						
+						{/* <ArticleList /> */}
 					</div>
-					<UserForm value = {this.state.username} onChange = {this.handleUserChange} />
-					<Switch>
-						<Route path = "/counter" component = {Counter} />
-						<Route path = "/filters" component = {SelectFilter} />
-						<Route path = "/articles" component = {Articles} />
-						<Route path = "/comments" component = {CommentsPage} />
-						{/* <Redirect from = "/comments/" to = "/comments/1" /> */}
-						<Route path = "*" component = {NotFound} />
-					</Switch>
-					{/* <Counter />
-					<DateRange />
-					<SelectFilter /> */}
-					
-					{/* <ArticleList /> */}
-				</div>
+				</LangProvider>
 			</ConnectedRouter>
 		);
 	}
 
 	handleUserChange = (username) => this.setState({ username });
 
+	changeLanguage = (language) => ev => this.setState({ language });
 	
 
 }

@@ -6,6 +6,7 @@ import CommentForm from '../CommentForm/CommentForm';
 import toggleOpen from '../../decorators/toggleOpen';
 import { loadArticleComments } from '../actions';
 import { connect } from 'react-redux';
+import LocalizedText from '../LocalizedText/LocalizedText';
 
 class CommentList extends Component {
     static contextTypes = {
@@ -23,7 +24,7 @@ class CommentList extends Component {
     render() {
         const {article, isOpen, toggleOpen} = this.props;
         console.log(this.context);
-        const btnText = isOpen ? 'Hide comments' : 'Show comments';
+        const btnText = isOpen ? <LocalizedText>Hide comments</LocalizedText> : <LocalizedText>Show comments</LocalizedText>;
 
         return(
             <div>
@@ -40,7 +41,7 @@ function getBody({article: {comments = [], id, commentsLoaded, commentsLoading},
     if (!isOpen) return null;
     if (commentsLoading) return <Loader />;
     if (!commentsLoaded) return null;
-    if (!comments.length) return <p>No comments</p>;
+    if (!comments.length) return <p><LocalizedText>No comments</LocalizedText></p>;
 
     return (
         <div>
