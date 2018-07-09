@@ -74,4 +74,4 @@ class Article extends Component {
 
 export default connect((state, ownProps) => ({
     article: state.articles.entities.get(ownProps.id)
-}), { deleteArticle, loadArticle })(Article);
+}), { deleteArticle, loadArticle }, null, {pure: false})(Article);

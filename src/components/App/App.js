@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 // import fetchNews from '../../utils/api';
 // import { articles, normalizedComments, normalizedArticles } from '../../data/data';
 import Articles from '../../components/routes/Articles';
@@ -14,14 +15,19 @@ import history from '../../history';
 // import './App.css';
 
 class App extends Component {
-	constructor(props) {
-		super(props);
+	static childContextTypes = {
+		user: PropTypes.string
+	};
 
-		this.state  = {
-			// articles: articles,
-			selection: null
+	getChildContext() {
+		return {
+			user: this.state.username
 		}
-	}
+	};
+
+	state = {
+		username: ''
+	};
 
 	componentDidMount() {
 		// fetchNews().then(response => {
@@ -46,7 +52,7 @@ class App extends Component {
 						<div><NavLink activeStyle={{color: 'red'}} to="/filters">Filters</NavLink></div>
 						<div><NavLink activeStyle={{color: 'red'}} to="/articles">Articles</NavLink></div>
 					</div>
-					<UserForm />
+					<UserForm value = {this.state.username} onChange = {this.handleUserChange} />
 					<Switch>
 						<Route path = "/counter" component = {Counter} />
 						<Route path = "/filters" component = {SelectFilter} />
@@ -64,6 +70,8 @@ class App extends Component {
 			</ConnectedRouter>
 		);
 	}
+
+	handleUserChange = (username) => this.setState({ username });
 
 	
 
